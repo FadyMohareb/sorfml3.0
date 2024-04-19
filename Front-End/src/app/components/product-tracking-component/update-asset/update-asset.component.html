@@ -1,0 +1,133 @@
+
+<span class="material-icons" (click)="close()" style="float: right;">
+  <mat-icon>highlight_off</mat-icon>
+</span>
+
+<div style="margin: 15px;">
+  <form>
+    <div fxLayout="column" fxLayoutAlign="space-around stretch">
+      <div class="row">
+
+        <div class="col-md-12">
+          <!-- If asset has already been requested transaction, make the form disabled -->
+          <div *ngIf="alreadyRequested" class="p-1 mb-1 bg-secondary text-white" style="border-radius: 4px;">
+            <h5>You can not edit this asset at the moment - the transaction process is pending.</h5>
+          </div>
+          <!-- If asset has already finished, make the form disabled -->
+          <div *ngIf="zeroWeight" class="p-1 mb-1 bg-danger text-white" style="border-radius: 4px;">
+            <h5>You can not edit this asset - you do not possess any amount of this asset anymore.</h5>
+          </div>
+          <div style="font-size: 1.5em; text-align: center; margin-bottom: 15px;">Edit Asset</div>
+        </div>
+
+        <div class="col-md-12">
+          <small *ngIf="asset.productName === ''"
+            class="mat-text-warn">If this section is brank, the product name will not be changed.<br>
+          </small>
+          <mat-error *ngIf="form.controls['productName'].hasError('pattern')"
+            class="mar-text-warn">Only alphabets are acceptable!<br>
+          </mat-error>
+          <mat-form-field appearance="outline" style="width: 300px;">
+            <mat-label>Product Name</mat-label>
+            <input matInput
+              type          = "text"
+              pattern       = "[a-zA-Z ]*"
+              value         = {{asset.productName}}
+              [formControl] = "form.controls['productName']"
+              [(ngModel)]   = "asset.productName"
+              [readonly]    = "alreadyRequested || zeroWeight"
+              [required]    = "false">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-12">
+          <mat-error *ngIf="form.controls['temperature'].hasError('required') && form.controls['temperature'].touched"
+            class="mat-text-warn">You must include Temperature!<br>
+          </mat-error>
+          <mat-form-field appearance="outline" style="width: 300px;">
+            <mat-label>Temperature / ℃</mat-label>
+            <input matInput
+              type          = "number"
+              value         = {{asset.temperature}}
+              [formControl] = "form.controls['temperature']"
+              [(ngModel)]   = "assetTempNum"
+              [readonly]    = "alreadyRequested || zeroWeight"
+              [required]    = "true">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-12">
+          <mat-error *ngIf="assetWeightNum < 0 && !zeroWeight"
+            class="mat-text-warn">The weight cannot be less than 0 Kg!<br>
+          </mat-error>
+          <mat-error *ngIf="assetWeightNum > dataWeightNum"
+            class="mat-text-warn">You can not increase the current weight!<br>
+          </mat-error>
+          <mat-error *ngIf="form.controls['weight'].hasError('required') && form.controls['weight'].touched"
+            class="mat-text-warn">You must include Weight!<br>
+          </mat-error>
+          <mat-form-field appearance="outline" style="width: 300px;">
+            <mat-label>Weight / Kg</mat-label>
+            <input matInput
+              type          = "number"
+              value         = {{asset.weight}}
+              [formControl] = "form.controls['weight']"
+              [(ngModel)]   = "assetWeightNum"
+              [readonly]    = "alreadyRequested || zeroWeight"
+              [required]    = "true">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-12">
+          <mat-error *ngIf="form.controls['location'].hasError('required') && form.controls['location'].touched"
+            class="mat-text-warn">You must include Location!<br>
+          </mat-error>
+          <mat-error *ngIf="form.controls['location'].touched && googleSearchBox.getPlaces() === undefined"
+            class="mat-text-warn">Select location from the search list again.<br>
+          </mat-error>
+          <mat-form-field appearance="outline" style="width: 300px;">
+            <mat-label>Location</mat-label>
+            <input matInput
+              id            = "google-search"
+              type          = "text"
+              value         = {{asset.location}}
+              [formControl] = "form.controls['location']"
+              [(ngModel)]   = "asset.location"
+              [readonly]    = "alreadyRequested || zeroWeight"
+              [required]    = "true">
+          </mat-form-field>
+        </div>
+
+        <div class="col-sm-12 ">
+          <mat-form-field appearance="outline" style="width: 300px;">
+            <mat-label>Use By Date</mat-label>
+            <input matInput
+              type          = "date"
+              value         = {{asset.useByDate}}
+              [formControl] = "form.controls['useByDate']"
+              [(ngModel)]   = "asset.useByDate"
+              [readonly]    = "alreadyRequested || zeroWeight">
+          </mat-form-field>
+        </div>
+
+          <button mat-raised-button
+            color      = "primary"
+            type       = "submit"
+            [disabled] = "!form.valid                    ||
+                          assetWeightNum < 0             ||
+                          assetWeightNum > dataWeightNum ||
+                          alreadyRequested               ||
+                          zeroWeight"
+            style      = "margin-top: 10px; margin-left: 20px;"
+            (click)    = "UpdateAsset()">
+            Confirm Edit
+          </button>
+
+        <div id="overlay" [hidden]="hiddenSpinner">
+          <mat-spinner id="spinner"></mat-spinner>
+        </div>
+
+      </div>
+    </div>
+  </form>
+</div>

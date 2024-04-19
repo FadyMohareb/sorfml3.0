@@ -1,0 +1,81 @@
+<div class="containerComponent">
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <button type="button" class="btn btn-primary btn-lg" mat-icon-button (click)="drawer.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span class="spacer"></span>
+    <a routerLink="home">
+      <img src="./assets/images/sorfML-button.png" />
+    </a>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link clickable" (click)="redirect(null, 'home')">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link clickable" (click)="print()">About</a>
+        </li>
+      </ul>
+      <ul *ngIf="!auth.isLoggedIn()" class="navbar-nav">
+        <h4>
+          <a class="text-bold text-white clickable" (click)="redirect(null, 'login')">Sign in</a>
+        </h4>
+        <h4>
+          <span class="text-gray">&nbsp;or&nbsp;</span>
+        </h4>
+        <h4>
+          <a class="text-bold text-white clickable" (click)="redirect(null, 'register')">Sign up</a>
+        </h4>
+      </ul>
+      <ul *ngIf="auth.isLoggedIn()" class="navbar-nav">
+        <h4 mat-icon-button [ngClass]="newNotification?'redColor clickable':'text-white clickable'" (menuOpened)="notificationSeen()"
+          [matMenuTriggerFor]="menu">
+          <mat-icon>notifications</mat-icon>
+        </h4>
+        <mat-menu #menu="matMenu">
+          <div *ngIf="notification.length > 0">
+            <div *ngFor="let notif of notification" class="list-group-item list-group-item-action clickable">
+              <span (click)="redirect(null, 'experiment/detail/' + notif.experimentId)">{{notif.experimentName}} shared by
+                {{notif.author_name}} on {{notif.experimentCreationDate | date:'fullDate'}}</span>
+              <button (click)="deleteNotification(notif.experimentId)" type="button" class="close redColor" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          </div>
+          <div *ngIf="notification.length === 0" class="list-group-item list-group-item-action">
+            <span>No Notification</span>
+          </div>
+        </mat-menu>
+
+        <span class="spacer"></span>
+        <h4>
+          <a class="text-bold text-green clickable" (click)="redirect(null, 'profile')">Welcome {{auth.getUserDetails()?.firstname}}</a>
+        </h4>
+        <h4>
+          <span class="text-bold text-white">&nbsp;|&nbsp;</span>
+        </h4>
+        <h4>
+          <a class="text-bold text-white clickable" (click)="auth.logout()">Logout</a>
+        </h4>
+      </ul>
+    </div>
+  </nav>
+
+  <mat-sidenav-container class="sidenav-container" autosize>
+    <mat-sidenav #drawer opened class="sidenav" [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches">
+      <mat-toolbar color="warn">Menu</mat-toolbar>
+      <ng-material-multilevel-menu *ngIf="auth.isLoggedIn()" [items]='sidebarInfo_logged' (selectedItem)="redirect($event, null)"
+        class="clickable"></ng-material-multilevel-menu>
+      <ng-material-multilevel-menu *ngIf="!auth.isLoggedIn()" [items]='sidebarInfo' (selectedItem)="redirect($event, null)" class="clickable"></ng-material-multilevel-menu>
+      <app-experiment-list-nav *ngIf="auth.isLoggedIn()" class="clickable"></app-experiment-list-nav>
+      <app-experiment-nav *ngIf="currentExperimentId !== 'noId'" class="clickable"></app-experiment-nav>
+    </mat-sidenav>
+
+    <mat-sidenav-content style="background-color: #ecf0f1">
+      <app-experiment-info *ngIf="showInfo"></app-experiment-info>
+      <ng-content></ng-content>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

@@ -1,0 +1,23 @@
+<h1 mat-dialog-title align="center">Are you sure to delete this asset?</h1>
+
+<div mat-dialog-content align="left">
+  <!-- If asset has already been requested transaction, make the form disabled -->
+  <div *ngIf="alreadyRequested" class="p-1 mb-1 bg-secondary text-white" style="border-radius: 4px;">
+    <span class="material-icons">error</span>
+    You can not delete this asset at the moment because the transaction process is pending.
+    Please wait for Regulatory Department's transaction approval.<br>
+  </div>
+  <div>
+    Note that if you have already transferred this asset to other organisations,
+    these transferred assets will NOT be deleted and still remain as being owned
+    by the organisations.
+  </div>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onDismiss()">Cancel</button>
+  <button mat-raised-button color="warn" [disabled]="alreadyRequested" (click)="onDelete()">Delete</button>
+  <div id="overlay" [hidden]="hiddenSpinner">
+    <mat-spinner id="spinner"></mat-spinner>
+  </div>
+</div>

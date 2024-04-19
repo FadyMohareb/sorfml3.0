@@ -1,0 +1,71 @@
+.node {
+    cursor: pointer;
+}
+
+.node circle {
+    stroke: steelblue;
+    stroke-width: 1.5px;
+}
+
+.node text {
+    font: 10px sans-serif;
+}
+
+.link {
+    fill: none;
+    stroke: lightgray;
+    stroke-width: 1.5px;
+}
+
+.legend {
+    margin-right: 10%;
+}
+
+.class-name {
+    margin: 0 !important;
+}
+
+.circle {
+    display: inline-block;
+    height: 12px;
+    margin-right: .5em;
+    width: 12px;
+    border-radius: 75%;
+}
+
+.fresh {
+    background: #FF0000;
+}
+
+.semifresh {
+    background: #800000;
+}
+
+.spoiled {
+    background: #008000;
+}
+
+.beef {
+    background: #FF0000;
+}
+
+.beefPorkMix {
+    background: #800000;
+}
+
+.pork {
+    background: #008000;
+}
+
+.leg2 {
+    float: right;
+    margin-right: 1em;
+}
+
+#lengthOfNodeText {
+    position: absolute;
+    visibility: hidden;
+    height: auto;
+    width: auto;
+    white-space: nowrap;
+}

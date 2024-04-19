@@ -1,0 +1,149 @@
+<span class="material-icons" (click)="close()" style="float: right;">
+  <mat-icon>highlight_off</mat-icon>
+</span>
+<div style="margin: 15px;">
+  <div style="font-size:1.5em; text-align:center; margin-bottom: 15px; width:600;">Transaction Details</div>
+  <form>
+    <div fxLayout="column" fxLayoutAlign="space-around">
+      <div class="row">
+
+        <div class="col-md-12">
+          <button mat-raised-button
+            type    = "button"
+            color   = "warn"
+            style   = "margin-bottom: 15px; width: 220px;"
+            class   = "btn btn-primary"
+            (click) = "viewTxHistory()">
+            <span class="material-icons">fingerprint</span>
+            See Transaction History
+          </button>
+        </div>
+
+        <div class="col-md-12">
+          <button mat-raised-button
+            type    = "button"
+            color   = "primary"
+            style   = "margin-bottom: 15px; width: 220px;"
+            class   = "btn btn-primary"
+            (click) = "createAndDownloadQrcode()">
+            <span class="material-icons">file_download</span>
+            Download QR code
+          </button>
+        </div>
+
+        <div class="col-md-12">
+          <mat-form-field appearance="outline" style="margin-top: 30px; width: 300px;">
+            <mat-label>Product Name</mat-label>
+            <input matInput type="text" value="{{asset.ProductName}}" [readonly]="true">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-12">
+          <mat-form-field appearance="outline" style="width: 300px;">
+            <mat-label>Product ID</mat-label>
+            <input matInput type="text" value="{{asset.ProductID}}" [readonly]="true">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-12">
+          <mat-form-field appearance="outline" style="width: 300px;">
+            <mat-label>Previous Product ID</mat-label>
+            <input matInput type="text" value="{{asset.PreviousProductID}}" [readonly]="true">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-12">
+          <mat-form-field appearance="outline" style="width: 300px;">
+            <mat-label>Root Product ID</mat-label>
+            <input matInput type="text" value="{{asset.RootProductID}}" [readonly]="true">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-12">
+          <mat-form-field appearance="outline" style="width: 300px;">
+            <mat-label>Current Owner Organisation</mat-label>
+            <input matInput type="text" value="{{asset.Owner}}" [readonly]="true">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-12">
+          <mat-form-field appearance="outline" style="width: 300px">
+            <mat-label>Weight / Kg</mat-label>
+            <input matInput type="text" value="{{asset.Weight}}" [readonly]="true">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-12">
+          <mat-form-field appearance="outline" style="width: 300px">
+            <mat-label>Temperature / ℃</mat-label>
+            <input matInput type="text" value="{{asset.Temperature}}" [readonly]="true">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-12">
+          <mat-form-field appearance="outline" style="width: 300px">
+            <mat-label>Use-by Date</mat-label>
+            <input matInput type="text" value="{{asset.UseByDate}}" [readonly]="true">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-12">
+          <mat-form-field appearance="outline" style="width: 300px;">
+            <mat-label>Asset Status</mat-label>
+            <input matInput type="text" value="{{asset.AssetStatus}}" [readonly]="true">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-12">
+          <mat-form-field appearance="outline" style="width: 300px;">
+            <mat-label>Transfer From</mat-label>
+            <input matInput type="text" value="{{asset.TransferFrom}}" [readonly]="true">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-12">
+          <mat-form-field appearance="outline" style="width: 300px;">
+            <mat-label>Transfer To</mat-label>
+            <input matInput type="text" value="{{asset.TransferTo}}" [readonly]="true">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-12">
+          <mat-form-field appearance="outline" style="width: 300px;">
+            <mat-label>Transfer Weight / Kg</mat-label>
+            <input matInput type="text" value="{{asset.TransferWeight}}" [readonly]="true">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-12">
+          <mat-form-field appearance="outline" style="width: 300px;">
+            <mat-label>Timestamp</mat-label>
+            <input matInput type="text" value="{{asset.EventTimestamp}}" [readonly]="true">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-12">
+          <mat-form-field appearance="outline" style="width: 300px;">
+            <mat-label>Event by</mat-label>
+            <input matInput type="text" value="{{asset.EventBy}}" [readonly]="true">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-12">
+          <mat-form-field appearance="outline" style="width: 300px;">
+            <mat-label>Hash</mat-label>
+            <input matInput type="text" value="{{asset.Hash}}" [readonly]="true">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-12">
+          <mat-form-field appearance="outline" style="width: 300px;">
+            <mat-label>Previous Hash</mat-label>
+            <input matInput type="text" value="{{asset.PreviousHash}}" [readonly]="true">
+          </mat-form-field>
+        </div>
+
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,131 @@
+<div class="jumbotron">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 offset-sm-3">
+        <h2>Register</h2>
+        <form (submit)="register()" #registerForm="ngForm">
+
+          <div id="lastnameField">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Last name" type="text" required [(ngModel)]="credentials.lastname" name="lastname" #lastname="ngModel">
+            </mat-form-field>
+            <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="alert alert-danger">
+              Last name is required
+            </div>
+          </div>
+
+          <div id="firstnameField">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="First name" type="text" required [(ngModel)]="credentials.firstname" name="firstname" #firstname="ngModel">
+            </mat-form-field>
+            <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="alert alert-danger">
+              First name is required
+            </div>
+          </div>
+
+          <div id="emailField">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Email" type="text" required email [(ngModel)]="credentials.email" name="email" #email="ngModel">
+            </mat-form-field>
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+              <div *ngIf="email.errors.required">
+                Email is required.
+              </div>
+              <div *ngIf="email.errors.email">
+                Email not valid.
+              </div>
+            </div>
+            <div *ngIf="existingEmailsList" class="alert alert-danger">
+              Email already exists. Retry with another one.
+            </div>
+          </div>
+
+          <div ngModelGroup="passwords" #passwords="ngModelGroup" appCheckPassword>
+            <div id="passwordField">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Password" type="password" required minlength="7" #passwordA="ngModel" name="passwordA" [(ngModel)]="credentials.password">
+              </mat-form-field>
+              <div *ngIf="passwordA.invalid && (passwordA.dirty || passwordA.touched)" class="alert alert-danger">
+                <div *ngIf="passwordA.errors.required">
+                  Password is required.
+                </div>
+                <div *ngIf="passwordA.errors.minlength">
+                  Password must be at least 7 characters long.
+                </div>
+              </div>
+            </div>
+
+            <div id="passwordConfirmField">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Confirm Password" type="password" required #passwordB="ngModel" name="passwordB" [(ngModel)]="credentials.passwordConfirm">
+              </mat-form-field>
+              <div *ngIf="passwordB.invalid && (passwordB.dirty || passwordB.touched)" class="alert alert-danger">
+                <div *ngIf="passwordB.errors.required">
+                  Confirm password is required.
+                </div>
+              </div>
+              <div *ngIf="passwords.errors?.passwordCheck && (passwordB.dirty || passwordB.touched)" class="alert alert-danger">
+                Passwords do not match.
+              </div>
+            </div>
+          </div>
+
+          <div id="organisationSelectField">
+            <small style="color:red">Note that the organisation can NOT be changed later on.</small>
+            <mat-form-field class="full-width" appearance="fill">
+              <mat-label>Organisation</mat-label>
+              <mat-select
+                placeholder   = "Organisation selection"
+                [(ngModel)]   = "organisationSelected"
+                required name = "organisationOptions"
+                #organisation = "ngModel">
+                <mat-option *ngFor="let item of organisationOptions" [value]="item.value">{{item.viewValue}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div id="organisationTextField">
+            <div *ngIf="organisationSelected === 'Others'" class="alert alert-info">
+              Type your organisation name below.
+            </div>
+            <mat-form-field class="full-width" appearance="fill">
+              <input
+                matInput
+                placeholder   = "Your organisation name"
+                [(ngModel)]   = "newOrganisationName"
+                required name = "newOrganisationName"
+                [disabled]    = "organisationSelected !== 'Others'"
+                [hidden]      = "organisationSelected !== 'Others'"
+                #organisation = "ngModel">
+            </mat-form-field>
+            <div *ngIf =
+              "(organisation.invalid && (organisation.dirty || organisation.touched)) ||
+              (organisationSelected === 'Others' && newOrganisationName === '')"
+              class = "alert alert-danger">
+              Organisation name is required
+            </div>
+            <div *ngIf="!isOrgNameValid" class="alert alert-danger">
+              This organisation name is not available. Change it and try again.
+            </div>
+          </div>
+
+          <div id="checkRegulatoryDepartmentField" style="background-color: gainsboro; padding: 15px; border-radius: 4px;">
+            <small style="color:red">This is test implementation. The Regulatory Department should be registered even more strictly!</small>
+            <mat-checkbox [(ngModel)]="credentials.isregulatorydepartment" name="isregulatorydepartment" #isregulatorydepartment="ngModel">
+              Register as Regulatory Department in the product tracking layer?
+            </mat-checkbox>
+            <div *ngIf="credentials.isregulatorydepartment" class="alert alert-info">
+              Note that your organisation will compulsorily be<br>REGULATORY DEPARTMENT OF SORFML2.
+            </div>
+          </div>
+
+          <div id="butttonRegisterUser">
+            <br>
+            <button type="submit" class="btn btn-success" [disabled]="!registerForm.form.valid">Register!</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

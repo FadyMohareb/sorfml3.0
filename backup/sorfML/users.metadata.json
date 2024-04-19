@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"sorfML.users"},{"v":2,"unique":true,"key":{"email":1},"name":"email_1","ns":"sorfML.users","background":true}],"uuid":"080e69e2bece479c9b80fb3ecde9abaa"}

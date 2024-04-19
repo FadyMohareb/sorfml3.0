@@ -1,0 +1,17 @@
+
+.btn {
+  border-width  : 0.1cap;
+  width         : auto;
+  border-radius : 0.4cap;
+}
+
+.btn-primary {
+    color            : white;
+    background-color : #219C90;
+    border-color     : #5C8984;
+}
+
+.btn-disabled {
+    background-color : gray;
+    cursor           : not-allowed;
+}

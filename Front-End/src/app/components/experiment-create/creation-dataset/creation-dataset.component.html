@@ -1,0 +1,66 @@
+<div *ngFor="let dataset of datasetList; let index = index">
+  <div id="nameDatasetField">
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Dataset name" type="text" required [(ngModel)]="datasetList[index].name" name=nameDataset{{index}}
+        #nameDataset="ngModel">
+    </mat-form-field>
+    <div *ngIf="nameDataset.invalid && (nameDataset.dirty || nameDataset.touched)" class="alert alert-danger">
+      Dataset name is required
+    </div>
+  </div>
+
+  <div id="descriptionDatasetField">
+    <mat-form-field class="full-width">
+      <textarea matInput placeholder="Dataset description" type="text" id="descriptionDataset" required [(ngModel)]="datasetList[index].description"
+        name=descriptionDataset{{index}} #descriptionDataset="ngModel"></textarea>
+    </mat-form-field>
+    <div *ngIf="descriptionDataset.invalid && (descriptionDataset.dirty || descriptionDataset.touched)" class="alert alert-danger">
+      Dataset description is required
+    </div>
+  </div>
+
+  <div id="datasetFiles">
+    <h6>Select the type of dataset and browse the files:</h6>
+    <div class="container">
+      <div class="row justify-content-between">
+        <div class="col-3 d-flex align-items-center">
+          <mat-form-field>
+            <mat-select placeholder="Dataset Type" [(ngModel)]="datasetList[index].type" required #typeDataset="ngModel" name=typeDataset{{index}}>
+              <mat-option *ngFor="let item of type" [value]="item.value">
+                {{item.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-6 d-flex align-items-center">
+          <div class="inline-block">
+            <input type="file" id="file{{index}}" #file class="inputfile" (change)="onChange(file.files, index)" (click)="touch(index)"
+              accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+            <label for="file{{index}}" class="btn btn-secondary buttonSelectFile">Choose a CSV file</label>
+            {{datasetList[index].filename}}
+          </div>
+        </div>
+        <div class="col-1 d-flex align-items-center">
+          <button mat-icon-button color="warn" *ngIf="datasetList.length !== 1" (click)="removeDataset(index)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="typeDataset.invalid && (typeDataset.dirty || typeDataset.touched)" class="alert alert-danger">
+      Dataset type is required
+    </div>
+    <div *ngIf="showErrorFile[index]" class="alert alert-danger">
+      Dataset file required
+    </div>
+    <div *ngIf="showErrorExtension[index]" class="alert alert-danger">
+      Extension is not good. (CSV only).
+    </div>
+  </div>
+  <mat-divider *ngIf="datasetList.length > 1 && index+1 !== datasetList.length"></mat-divider>
+</div>
+<div>
+  <button mat-icon-button color="primary" (click)="addDataset()">
+    <mat-icon>add_box</mat-icon>
+  </button>
+</div>

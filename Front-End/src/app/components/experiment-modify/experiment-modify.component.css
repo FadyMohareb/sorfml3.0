@@ -1,0 +1,43 @@
+.full-width {
+    width: 100%;
+  }
+  
+  .headers-align .mat-expansion-panel-header-title,
+  .headers-align .mat-expansion-panel-header-description {
+    flex-basis: 0;
+  }
+  
+  .headers-align .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .text-bold {
+    font-weight: 600 !important;
+  }
+  
+  .mat-divider {
+    border-top: 2px solid !important;
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+  }
+  
+  .section {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: 60px;
+  }
+  
+  .margin {
+    margin: 10px;
+  }
+  
+  .inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }

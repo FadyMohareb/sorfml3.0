@@ -1,0 +1,125 @@
+<div *ngIf="!error.show" class="contain">
+  <div class="row" style="height: 100% !important">
+    <div class="col-10 offset-1" style="height: 100% !important">
+      <div id="MenuPCA" class="row">
+        <button mat-button [matMenuTriggerFor]="colours">Assign Colours</button>
+        <mat-menu #colours="matMenu">
+          <div *ngFor="let metadata of metadataList">
+            <div *ngIf="metadata.type === 'bacterialCount'">
+              <button mat-menu-item [matMenuTriggerFor]="bacterialCount">Bacterial Count</button>
+              <mat-menu #bacterialCount="matMenu">
+                <button *ngFor="let item of metadata.headers | slice:1" mat-menu-item (click)="sampleActionBC(item)">{{item}}</button>
+              </mat-menu>
+            </div>
+            <div *ngIf="metadata.type === 'sensoryScore'">
+              <button mat-menu-item (click)="sampleAction(metadata.type)">Sensory Score</button>
+            </div>
+            <div *ngIf="metadata.type === 'authenticityClass'">
+              <button mat-menu-item (click)="sampleAction(metadata.type)">Authenticity Class</button>
+            </div>
+            <div *ngIf="metadata.type === 'pH'">
+              <button mat-menu-item (click)="sampleAction(metadata.type)">pH</button>
+            </div>
+            <div *ngIf="metadata.type === 'temperature'">
+              <button mat-menu-item (click)="sampleAction(metadata.type)">Temperature</button>
+            </div>
+            <div *ngIf="metadata.type === 'TVC'">
+              <button mat-menu-item (click)="sampleAction(metadata.type)">TVC</button>
+            </div>
+            <div *ngIf="metadata.type === 'Generic'">
+              <button mat-menu-item (click)="sampleAction(metadata.type)">Generic</button>
+            </div>
+          </div>
+
+        </mat-menu>
+        <button mat-button [matMenuTriggerFor]="scaling">Linkage Method</button>
+        <mat-menu #scaling="matMenu">
+          <button mat-menu-item (click)="changeLinkage('single')">Single</button>
+          <button mat-menu-item (click)="changeLinkage('complete')">Complete</button>
+          <button mat-menu-item (click)="changeLinkage('average')">Average</button>
+          <button mat-menu-item [hidden]="isGCMS" (click)="changeLinkage('centroid')">Centroid</button>
+          <button mat-menu-item (click)="changeLinkage('ward')">Ward</button>
+        </mat-menu>
+      </div>
+
+      <span class="spacer"></span>
+
+      <div id="datasetTab" class="row">
+        <nav mat-tab-nav-bar style="height: 49px !important;">
+          <div *ngFor="let tab of datasetList; let index = index">
+            <a mat-tab-link class="tab" (click)="onTabChanged(index)">
+              {{tab.type}}
+            </a>
+            <div class="mat-ink-bar" [ngStyle]="inkBarPosition()" style="visibility: visible; width: 160px;"></div>
+          </div>
+        </nav>
+      </div>
+
+      <div *ngIf="legendAuthenticity && nbClasses === 3" class="legend">
+        <br>
+        <div class="leg2">
+          <span class="circle beef"></span>Pure Beef</div>
+        <div class="leg2">
+          <p class="class-name">
+            <span class="circle beefPorkMix"></span>Beef/Pork (70/30)</p>
+        </div>
+        <div class="leg2">
+          <p class="class-name">
+            <span class="circle pork"></span>Pure Pork</p>
+        </div>
+      </div>
+      <div *ngIf="legendSensory && nbClasses === 3" class="legend">
+        <br>
+        <div class="leg2">
+          <span class="circle fresh"></span>Fresh</div>
+        <div class="leg2">
+          <p class="class-name">
+            <span class="circle semifresh"></span>Semi Fresh</p>
+        </div>
+        <div class="leg2">
+          <p class="class-name">
+            <span class="circle spoiled"></span>Spoiled</p>
+        </div>
+      </div>
+
+      <div *ngIf="legendSensory && nbClasses == 2" class="legend">
+        <br>
+        <div class="leg2">
+          <span class="circle fresh"></span>Fresh</div>
+        <div class="leg2">
+          <p class="class-name">
+            <span class="circle spoiled"></span>Spoiled</p>
+        </div>
+      </div>
+      <span class="spacer"></span>
+      <div class="row" [hidden]="!showLegend" id="legend">
+        <svg></svg>
+      </div>
+      <div class="row" id="HCA" [style.height.%]="height" style="overflow-y: scroll">
+        <svg style="display: block;"></svg>
+      </div>
+    </div>
+  </div>
+</div>
+<mat-spinner id="spinner"></mat-spinner>
+<div id="overlay" [hidden]="display">
+  <!-- <mat-spinner id="spinner"></mat-spinner> -->
+</div>
+
+<div *ngIf="error.show" class="jumbotron">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 offset-md-1">
+        <h2>
+          {{error.title}}
+          <br/>
+          <br/>
+        </h2>
+        <h4 [innerHTML]="error.message"></h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="lengthOfNodeText">
+</div>

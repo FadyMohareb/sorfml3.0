@@ -1,0 +1,7 @@
+.mat-column-id {
+    flex: none;
+    width: 10px important;
+    /* flex: 0 0 1%; */
+    overflow-wrap: break-word;
+    word-wrap:break-word;
+}

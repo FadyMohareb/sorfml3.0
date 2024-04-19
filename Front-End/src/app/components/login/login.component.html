@@ -1,0 +1,23 @@
+<div class="jumbotron">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 offset-sm-3">
+        <h2>Login</h2>
+        <form (submit)="login()">
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" name="email" placeholder="Enter email" [(ngModel)]="credentials.email">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password" placeholder="Password" [(ngModel)]="credentials.password">
+          </div>
+          <div *ngIf="!success" class="alert alert-danger">
+            Wrong credentials, try again.
+          </div>
+          <button type="submit" class="btn btn-success">Sign in!</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+<div *ngIf="!error.show" class="contain">
+  <div style="padding-top: 10px; padding-right: 2rem; padding-left: 2rem;">
+    <div style="padding-top: 10px; padding-right: 2rem; padding-left: 2rem;">
+      <h4 class="text-bold">
+        Experiments List
+        <br>
+        <small class="text-muted" style="color: #67a79c !important;">{{message}}</small>
+      </h4>
+      <hr class="my-4">
+    </div>
+  </div>
+
+  <div class="contain">
+    <div class="row" style="height: 100% !important;">
+      <div class="col-10 offset-1" style="height: 80% !important;">
+        <ag-grid-angular #agGrid style="width: 100%; height: 100%;" id="myGrid" [rowData]="rowData" class="ag-theme-balham"
+          [columnDefs]="columnDefs" [enableSorting]="true" [enableFilter]="true" [enableColResize]="true" [paginationAutoPageSize]="true"
+          [pagination]="true" [animateRows]="true" [floatingFilter]="true" (rowClicked)='onRowClicked($event)' (gridReady)="onGridReady($event)">
+        </ag-grid-angular>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="overlay" [hidden]="display">
+  <mat-spinner id="spinner"></mat-spinner>
+</div>
+
+<div *ngIf="error.show" class="jumbotron">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 offset-md-1">
+        <h2>
+          {{error.title}}
+          <br/>
+          <br/>
+        </h2>
+        <h4 [innerHTML]="error.message"></h4>
+      </div>
+    </div>
+  </div>
+</div>

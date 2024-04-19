@@ -1,0 +1,69 @@
+<div *ngFor="let metadata of metadataList; let index = index">
+
+  <div id="nameMetadataField">
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Metadata name" type="text" required [(ngModel)]="metadataList[index].name" name=nameMetadata{{index}}
+        #nameMetadata="ngModel">
+    </mat-form-field>
+    <div *ngIf="nameMetadata.invalid && (nameMetadata.dirty || nameMetadata.touched)" class="alert alert-danger">
+      Metadata name is required
+    </div>
+  </div>
+
+  <div id="descriptionMetadataField">
+    <mat-form-field class="full-width">
+      <textarea matInput placeholder="Metadata description" type="text" id="descriptionMetadata" required [(ngModel)]="metadataList[index].description"
+        name=descriptionMetadata{{index}} #descriptionMetadata="ngModel"></textarea>
+    </mat-form-field>
+    <div *ngIf="descriptionMetadata.invalid && (descriptionMetadata.dirty || descriptionMetadata.touched)" class="alert alert-danger">
+      Dataset description is required
+    </div>
+  </div>
+
+  <div id="metadataFiles">
+    <h6>Select the type of metadata and browse the files:</h6>
+    <div class="container">
+      <div class="row justify-content-between">
+        <div class="col-3 d-flex align-items-center">
+          <mat-form-field>
+            <mat-select placeholder="Metadata Type" [(ngModel)]="metadataList[index].type" required #typeMetadata="ngModel" name=typeMetadata{{index}}>
+              <mat-option *ngFor="let item of type" [value]="item.value">
+                {{item.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-6 d-flex align-items-center">
+          <div class="inline-block">
+            <input type="file" id="fileMeta{{index}}" #file class="inputfile" (change)="onChange(file.files, index)" (click)="touch(index)"
+              accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+            <label for="fileMeta{{index}}" class="btn btn-secondary buttonSelectFile">Choose a CSV file</label>
+            {{metadataList[index].filename}}
+          </div>
+        </div>
+        <div class="col-1 d-flex align-items-center">
+          <button mat-icon-button color="warn" (click)="removeDataset(index)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="typeMetadata.invalid && (typeMetadata.dirty || typeMetadata.touched)" class="alert alert-danger">
+      Metadata type is required
+    </div>
+    <div *ngIf="showErrorFile[index]" class="alert alert-danger">
+      Metadata file required
+    </div>
+    <div *ngIf="showErrorExtension[index]" class="alert alert-danger">
+      Extension is not good. (CSV only).
+    </div>
+  </div>
+  <mat-divider *ngIf="metadataList.length > 1 && index+1 !== metadataList.length"></mat-divider>
+
+</div>
+
+<div>
+  <button mat-icon-button color="primary" (click)="addDataset()">
+    <mat-icon>add_box</mat-icon>
+  </button>
+</div>

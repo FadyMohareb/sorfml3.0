@@ -1,0 +1,67 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# Compiled output
+/Front-End/dist
+/Front-End/tmp
+/Front-End/out-tsc
+
+# Dependencies
+/Front-End/node_modules
+/Back-End/node_modules
+
+# Analysis data
+/Back-End/machineLearning/analysis
+
+# Product tracking data
+/Back-End/productTrackingData/latest_IDs
+/Back-End/productTrackingData/QRcodes
+
+# Wallet 
+/Back-End/ProductTrackingUtils/Wallet
+
+# Config file 
+/Back-End/config_test.json
+
+# QR code result PNG
+/Back-End/qrcode_result/product-tracking-qrcode.png
+
+# Connection config files 
+/Back-End/ProductTrackingUtils/connection-org1.json
+/Back-End/ProductTrackingUtils/connection-org2.json
+
+# IDEs and editors
+/.idea
+/Front-End/.project
+/Front-End/.classpath
+/Front-End/.c9/
+/Front-End/*.launch
+/Front-End/.settings/
+/Front-End/*.sublime-workspace
+/Back-End/.project
+/Back-End/.classpath
+/Back-End/.c9/
+/Back-End/*.launch
+/Back-End/.settings/
+/Back-End/*.sublime-workspace
+sorfML.code-workspace
+
+# IDE - VSCode
+/Front-End/.vscode/*
+/Front-End/!.vscode/settings.json
+/Front-End/!.vscode/tasks.json
+/Front-End/!.vscode/launch.json
+/Front-End/!.vscode/extensions.json
+/Back-End/.vscode/*
+/Back-End/!.vscode/settings.json
+/Back-End/!.vscode/tasks.json
+/Back-End/!.vscode/launch.json
+/Back-End/!.vscode/extensions.json
+
+# System Files
+/Front-End/.DS_Store
+/Front-End/Thumbs.db
+/Back-End/.DS_Store
+/Back-End/Thumbs.db
+/Back-End/productTrackingData/latest_IDs/da0491bcdcf3c8fca75dd233a522016129d534cb3054513c5ac56eff476169e3.txt
+/Back-End/dashboard/__pycache__/*
+**/.DS_Store

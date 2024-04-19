@@ -1,0 +1,9 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/app",
+    "module": "es2015",
+    "types": ["google.maps"]
+  },
+  "exclude": ["src/test.ts", "**/*.spec.ts"]
+}

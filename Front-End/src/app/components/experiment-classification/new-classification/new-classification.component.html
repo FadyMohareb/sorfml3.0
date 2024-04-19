@@ -1,0 +1,110 @@
+<form #myForm="ngForm">
+  <mat-accordion class="headers-align">
+    <mat-expansion-panel id="optionsClassification" [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title class="text-bold">
+          Step 1 : Options
+        </mat-panel-title>
+        <mat-panel-description>
+          Select the datasets and machine learning algorithims
+          <mat-icon>assignment</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <div class="row row justify-content-around">
+        <div id="platformCheckboxes" class="col-sm-3">
+          <h6>Analytical Platforms</h6>
+          <section>
+            <mat-checkbox (change)="selectAll(0, $event)">Select All</mat-checkbox>
+            <div *ngFor="let platform of classification.platformsList">
+              <mat-checkbox [(ngModel)]="platform.selected" [ngModelOptions]="{standalone: true}">{{platform.name}}</mat-checkbox>
+            </div>
+          </section>
+        </div>
+
+        <div id="learningMethodsCheckboxes" class="col-sm-5">
+          <h6>Machine Learning Methods</h6>
+          <section>
+            <mat-checkbox (change)="selectAll(2, $event)">Select All</mat-checkbox>
+            <div *ngFor="let mlm of classification.mlmList">
+              <mat-checkbox [(ngModel)]="mlm.selected" [ngModelOptions]="{standalone: true}">{{mlm.nameDisplay}}</mat-checkbox>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <mat-action-row>
+        <button mat-button color="primary" (click)="nextStep()">Next</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel id="parametersClassification" [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title class="text-bold">
+          Step 2 : Parameters
+        </mat-panel-title>
+        <mat-panel-description>
+          Select the parameters for the classification
+          <mat-icon>assignment</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+
+      <div *ngIf="!optionsChecked" class="alert alert-danger">
+        Missing information in step 1. Select at least one checkbox in each column.
+      </div>
+
+      <div *ngIf="optionsChecked">
+        <div class="row justify-content-around">
+          <div id="pretreatmentField" class="col-sm-5">
+            <h6>Pretreatment</h6>
+            <mat-form-field>
+              <mat-select [(value)]="classification.pretreatment">
+                <mat-option value="raw">No pretreatment</mat-option>
+                <mat-option value="center">Mean Center</mat-option>
+                <mat-option value="norm">Normalise</mat-option>
+                <mat-option value="rscale">Range Scale</mat-option>
+                <mat-option value="auto">Auto Scale</mat-option>
+                <mat-option value="pareto">Pareto Scale</mat-option>
+                <mat-option value="vast">Vast Scale</mat-option>
+                <mat-option value="level">Level Scale</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div id="space" class="col-sm-5">
+          </div>
+        </div>
+
+        <div class="row justify-content-around" style="margin-top: 15px !important">
+          <div id="percentageField" class="col-sm-5">
+            <h6>Percentage of samples in training dataset</h6>
+            <mat-form-field>
+              <input matInput type="number" id="percent" required [(ngModel)]="classification.percentage" name="percent" #percent="ngModel"
+                min="0" max="100">
+            </mat-form-field>
+            <div *ngIf="percent.invalid && (percent.dirty || percent.touched)" class="alert alert-danger">
+              Percentage is required
+            </div>
+          </div>
+
+          <div id="iterationField" class="col-sm-5">
+            <h6>Iterations to calculate performance</h6>
+            <mat-form-field>
+              <input matInput type="number" id="iter" required [(ngModel)]="classification.iteration" name="iter" #iter="ngModel" min="1">
+            </mat-form-field>
+            <div *ngIf="iter.invalid && (iter.dirty || iter.touched)" class="alert alert-danger">
+              Iteration is required
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <mat-action-row>
+        <button mat-button color="warn" (click)="prevStep()">Previous</button>
+        <button mat-button color="primary" [disabled]="!optionsChecked || !myForm.form.valid" (click)="submit()">End</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+
+  </mat-accordion>
+</form>

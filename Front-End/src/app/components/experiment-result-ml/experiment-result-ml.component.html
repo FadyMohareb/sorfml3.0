@@ -1,0 +1,92 @@
+<div *ngIf="!error.show" class="contain">
+
+  <div *ngIf="table" class="col-10 offset-1" style="height: 100% !important;">
+    <div class="row" style="margin-bottom: 10px">
+      <div class="col-auto mr-auto button-row">
+        <button mat-raised-button (click)="download()">Download Report</button>
+      </div>
+      <div class="col-auto">
+        <button *ngIf="auth.isLoggedIn()" mat-stroked-button color="warn" (click)="save()">Save the row selected</button>
+      </div>
+
+    </div>
+
+    <div class="row" style="height: 78% !important;">
+      <ag-grid-angular #agGrid style="width: 100%; height: 100%;" id="myGrid" [rowData]="rowData" class="ag-theme-balham" [columnDefs]="columnDefs"
+        [enableSorting]="true" [enableRangeSelection]="true" [enableFilter]="true" [enableColResize]="true" [rowSelection]="rowSelection"
+        [rowMultiSelectWithClick]="true" [paginationAutoPageSize]="true" [pagination]="true" [animateRows]="true" [floatingFilter]="true"
+        (gridReady)="onGridReady($event)">
+      </ag-grid-angular>
+    </div>
+  </div>
+
+  <div *ngIf="!table">
+    <div align="center" class="col-10 offset-1" style="height: 100% !important;">
+      <h2>Results of the {{type}}</h2>
+      <p *ngIf="type === 'regression'" class="lead"> <strong>Machine Learning:</strong> {{info.ML}} -- <strong>Bacteria:</strong>
+        {{info.Bacteria}} --
+        <strong>Platform:</strong> {{info.Platform}}</p>
+      <p *ngIf="type !== 'regression'" class="lead"> <strong>Machine Learning:</strong> {{info.ML}} --
+        <strong>Platform:</strong> {{info.Platform}}</p>
+    </div>
+    <div *ngIf="is_metaFile != 'true'" class="col-2 offset-5" style="height: 100% !important;">
+      <table class="table table-hover">
+        <thead>
+          <tr class="table-success">
+            <th scope="col"></th>
+            <th scope="col">Model Used</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let key of objectKeys(previousResult)" class="table-active">
+            <th scope="row">{{key}}</th>
+            <td>{{previousResult[key]}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="is_metaFile == 'true'" class="col-4 offset-4" style="height: 100% !important;">
+      <table class="table table-hover">
+        <thead>
+          <tr class="table-success">
+            <th scope="col"></th>
+            <th scope="col">Model Used</th>
+            <th scope="col">New Results</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let key of objectKeys(previousResult)" class="table-active">
+            <th scope="row">{{key}}</th>
+            <td>{{previousResult[key]}}</td>
+            <td>{{currentResult[key]}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div align="center" style="margin-top: 10px">
+      <button mat-raised-button (click)="download()">Download Report</button>
+    </div>
+
+  </div>
+
+
+</div>
+
+<div id="overlay" [hidden]="display">
+  <mat-spinner id="spinner"></mat-spinner>
+</div>
+
+<div *ngIf="error.show" class="jumbotron">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 offset-md-1">
+        <h2>
+          {{error.title}}
+          <br/>
+          <br/>
+        </h2>
+        <h4 [innerHTML]="error.message"></h4>
+      </div>
+    </div>
+  </div>
+</div>

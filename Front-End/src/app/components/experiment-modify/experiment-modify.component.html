@@ -1,0 +1,116 @@
+<div *ngIf="!showError">
+  <form name="form" #f="ngForm" novalidate>
+    <div class="jumbotron">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-8 offset-sm-2">
+            <mat-accordion class="headers-align">
+
+              <mat-expansion-panel id="experimentDetails" [expanded]="step === 0" hideToggle="true">
+                <mat-expansion-panel-header>
+                  <mat-panel-title class="text-bold">
+                    Experiment details
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    Modify the details of the experiment
+                    <mat-icon>assignment</mat-icon>
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <div id="nameField">
+                  <mat-form-field class="full-width">
+                    <input matInput placeholder="Experiment name" type="text" required [(ngModel)]="experiment.name" name="name" #name="ngModel">
+                  </mat-form-field>
+                  <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+                    Experiment name is required
+                  </div>
+                </div>
+
+                <div id="descriptionField">
+                  <mat-form-field class="full-width">
+                    <textarea matInput placeholder="Experiment description" type="text" id="description" required [(ngModel)]="experiment.description"
+                      name="description" #description="ngModel"></textarea>
+                  </mat-form-field>
+                  <div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger">
+                    Experiment description is required
+                  </div>
+                </div>
+
+                <div id="typeField">
+                  <mat-form-field class="full-width">
+                    <input matInput placeholder="Experiment type" type="text" id="type" required [(ngModel)]="experiment.type" name="type" #type="ngModel">
+                  </mat-form-field>
+                  <div *ngIf="type.invalid && (type.dirty || type.touched)" class="alert alert-danger">
+                    Experiment type is required
+                  </div>
+                </div>
+
+                <div id="dateField">
+                  <mat-form-field class="full-width">
+                    <input matInput placeholder="Experiment date" type="date" id="date" required [(ngModel)]="experiment.date" name="date" #date="ngModel">
+                  </mat-form-field>
+                  <div *ngIf="date.invalid && (date.dirty || date.touched)" class="alert alert-danger">
+                    Experiment date is required
+                  </div>
+                </div>
+
+                <div id="visibilityField">
+                  <div class="form-group">
+                    <mat-form-field>
+                      <mat-select placeholder="Visibility" [(ngModel)]="visible" required name="visibility">
+                        <mat-option *ngFor="let item of visibility" [value]="item.value">
+                          {{item.viewValue}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div *ngIf="visible === '3'" id="sharedUserField">
+                  <div class="form-group">
+                    <ng-select [items]="users" [multiple]="true" [closeOnSelect]="false" [hideSelected]="true" bindLabel="bindName" bindValue="_id"
+                      placeholder="Select people" [(ngModel)]="experiment.user_permission" name="sharedUser" required #sharedUser="ngModel">
+                      <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                        <h5>{{item.firstname}} {{item.lastname}}</h5>
+                      </ng-template>
+                    </ng-select>
+                    <div *ngIf="sharedUser.invalid && (sharedUser.dirty || sharedUser.touched)" class="alert alert-danger">
+                      At least one user selected is required
+                    </div>
+                  </div>
+                </div>
+
+                <mat-action-row>
+                  <button mat-button color="primary" [disabled]="!f.form.valid" (click)="update()">Update</button>
+                </mat-action-row>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div id="overlay" [hidden]="display">
+  <mat-spinner id="spinner"></mat-spinner>
+</div>
+
+<div *ngIf="showError" class="jumbotron">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 offset-md-1">
+        <h2>
+          No Experiment Found.
+          <br/>
+          <br/>
+        </h2>
+        <h4>
+          The experiment as been deleted by the author or there is a problem with the server.
+          <br/>Check the console.
+        </h4>
+      </div>
+    </div>
+  </div>
+</div>

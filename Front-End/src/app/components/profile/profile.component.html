@@ -1,0 +1,163 @@
+<div *ngIf="!err.show" class="contain">
+  <div style="padding-top: 10px; padding-right: 2rem; padding-left: 2rem;">
+    <div style="padding-top: 10px; padding-right: 2rem; padding-left: 2rem;">
+      <h4 class="text-bold">
+        User Functionalities
+        <br>
+        <small *ngIf="auth.isAdmin()" class="text-muted" style="color: #67a79c !important;">From here, you can change your
+          details, set the role of the users and manage the models.</small>
+      </h4>
+      <hr class="my-4">
+    </div>
+  </div>
+
+  <div class="contain">
+    <mat-tab-group class="col-10 offset-1" (selectedTabChange)="onTabChanged($event)" [selectedIndex]="0">
+      <mat-tab label="Details">
+        <div class="col-6" style="margin-top: 12px;">
+          <form (submit)="updateProfile()" #detailsForm="ngForm">
+
+            <div id="lastnameField">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Last name" type="text" required [(ngModel)]="userInfo.lastname" name="lastname" #lastname="ngModel">
+              </mat-form-field>
+              <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="alert alert-danger">
+                Last name is required
+              </div>
+            </div>
+
+            <div id="firstnameField">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="First name" type="text" required [(ngModel)]="userInfo.firstname" name="firstname" #firstname="ngModel">
+              </mat-form-field>
+              <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="alert alert-danger">
+                First name is required
+              </div>
+            </div>
+
+            <div id="emailField">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Email" type="text" required email [(ngModel)]="userInfo.email" name="email" #email="ngModel">
+              </mat-form-field>
+              <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+                <div *ngIf="email.errors.required">
+                  Email is required.
+                </div>
+                <div *ngIf="email.errors.email">
+                  Email not valid.
+                </div>
+              </div>
+            </div>
+
+            <div id="organisationField">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Organisation (you can not edit organisation)" [readonly]="true" type="text" required [(ngModel)]="userInfo.organisation" name="organisation" #organisation="ngModel">
+              </mat-form-field>
+              <div *ngIf="organisation.invalid && (organisation.dirty || organisation.touched)" class="alert alert-danger">
+                Organisation is required
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-success" [disabled]="!detailsForm.form.valid">Update</button>
+          </form>
+          <div *ngIf="message.display" class="{{message.class}}" style="margin-top: 10px;">
+            {{message.message}}
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Password">
+        <div class="col-6" style="margin-top: 12px;">
+          <form (submit)="updatePassword()" #passwordForm="ngForm">
+
+            <div ngModelGroup="passwords" #passwords="ngModelGroup" appCheckPassword>
+              <div id="passwordField">
+                <mat-form-field class="full-width">
+                  <input matInput placeholder="Password" type="password" required minlength="7" #passwordA="ngModel" name="passwordA" [(ngModel)]="password">
+                </mat-form-field>
+                <div *ngIf="passwordA.invalid && (passwordA.dirty || passwordA.touched)" class="alert alert-danger">
+                  <div *ngIf="passwordA.errors.required">
+                    Password is required.
+                  </div>
+                  <div *ngIf="passwordA.errors.minlength">
+                    Password must be at least 7 characters long.
+                  </div>
+                </div>
+              </div>
+
+              <div id="passwordConfirmField">
+                <mat-form-field class="full-width">
+                  <input matInput placeholder="Confirm Password" type="password" required #passwordB="ngModel" name="passwordB" [(ngModel)]="passwordConfirm">
+                </mat-form-field>
+                <div *ngIf="passwordB.invalid && (passwordB.dirty || passwordB.touched)" class="alert alert-danger">
+                  <div *ngIf="passwordB.errors.required">
+                    Confirm password is required.
+                  </div>
+                </div>
+                <div *ngIf="passwords.errors?.passwordCheck && (passwordB.dirty || passwordB.touched)" class="alert alert-danger">
+                  Passwords do not match.
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-success" [disabled]="!passwordForm.form.valid">Update</button>
+          </form>
+          <div *ngIf="message.display" class="{{message.class}}" style="margin-top: 10px;">
+            {{message.message}}
+          </div>
+        </div>
+      </mat-tab>
+      <ng-container *ngIf="auth.isAdmin()">
+        <mat-tab label="Manage Models">
+          <ng-container *ngIf="tabIndex == 2">
+            <ag-grid-angular #agGridModels style="width: 100%; height: 80%;" id=tabModels [rowData]="rowData[0]" class="ag-theme-balham"
+              [columnDefs]="columnDefs[0]" [enableSorting]="true" [enableFilter]="true" [rowSelection]='rowSelection' [enableColResize]="true"
+              [paginationAutoPageSize]="true" [pagination]="true" [animateRows]="true" [floatingFilter]="true" (gridReady)="onGridReady($event)"
+              (rowClicked)="onRowClicked($event)">
+            </ag-grid-angular>
+          </ng-container>
+          <div *ngIf="message.display" class="{{message.class}}" style="margin-top: 10px;">
+            {{message.message}}
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Manage Users">
+          <ng-container *ngIf="tabIndex == 3">
+            <ag-grid-angular #agGridUsers style="width: 100%; height: 80%;" id=tabUsers [rowData]="rowData[1]" class="ag-theme-balham"
+              [columnDefs]="columnDefs[1]" [enableSorting]="true" [enableFilter]="true" [rowSelection]='rowSelection' [enableColResize]="true"
+              [paginationAutoPageSize]="true" [pagination]="true" [animateRows]="true" [floatingFilter]="true" (gridReady)="onGridReady($event)"
+              (rowClicked)="onRowClicked($event)">
+            </ag-grid-angular>
+          </ng-container>
+          <div *ngIf="message.display" class="{{message.class}}" style="margin-top: 10px;">
+            {{message.message}}
+          </div>
+        </mat-tab>
+      </ng-container>
+    </mat-tab-group>
+  </div>
+</div>
+
+
+
+
+<div id="overlay" [hidden]="display">
+  <mat-spinner id="spinner"></mat-spinner>
+</div>
+
+<div *ngIf="err.show" class="jumbotron">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 offset-md-1">
+        <h2>
+          No details Found.
+          <br/>
+          <br/>
+        </h2>
+        <h4>
+          The experiment as been deleted by the author or there is a problem with the server.
+          <br/>Check the console.
+        </h4>
+      </div>
+    </div>
+  </div>
+</div>

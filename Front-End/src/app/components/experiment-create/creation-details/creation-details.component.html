@@ -1,0 +1,56 @@
+
+
+<div id="nameField">
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Experiment name" type="text" required [(ngModel)]="experiment.name" name="name" #name="ngModel">
+    </mat-form-field>
+    <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+        Experiment name is required
+    </div>
+</div>
+
+<div id="descriptionField">
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Experiment description" type="text" id="description" required [(ngModel)]="experiment.description"
+            name="description" #description="ngModel">
+    </mat-form-field>
+    <div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger">
+        Experiment description is required
+    </div>
+</div>
+
+<div id="typeField">
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Experiment type" type="text" id="type" required [(ngModel)]="experiment.type" name="type" #type="ngModel">
+    </mat-form-field>
+    <div *ngIf="type.invalid && (type.dirty || type.touched)" class="alert alert-danger">
+        Experiment type is required
+    </div>
+</div>
+
+<div id="productField">
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Product Type (e.g. beef)" type="text" id="product" required [(ngModel)]="experiment.product" name="product" #product="ngModel">
+    </mat-form-field>
+    <div *ngIf="product.invalid && (product.dirty || product.touched)" class="alert alert-danger">
+        Product type is required
+    </div>
+</div>
+
+<div id="expLocationField">
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Experiment Location" type="text" id="location" required [(ngModel)]="experiment.location" name="location" #location="ngModel">
+    </mat-form-field>
+    <div *ngIf="location.invalid && (location.dirty || location.touched)" class="alert alert-danger">
+        Experiment Location is required
+    </div>
+</div>
+
+<div id="dateField">
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Experiment date" type="date" id="date" required [(ngModel)]="experiment.date" name="date" #date="ngModel">
+    </mat-form-field>
+    <div *ngIf="date.invalid && (date.dirty || date.touched)" class="alert alert-danger">
+        Experiment date is required
+    </div>
+</div>

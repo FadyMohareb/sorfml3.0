@@ -1,0 +1,13 @@
+
+<h1 mat-dialog-title align="center">Confirm Transaction</h1>
+<div mat-dialog-content align="center">
+  <p>Are you sure to transfer the ownership?</p>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onDismiss()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onApprove()">Transfer!</button>
+  <div id="overlay" [hidden]="hiddenSpinner">
+    <mat-spinner id="spinner"></mat-spinner>
+  </div>
+</div>

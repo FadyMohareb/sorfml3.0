@@ -1,0 +1,106 @@
+
+<form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+  <div class="jumbotron">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 offset-sm-2">
+          <mat-accordion class="headers-align">
+
+            <mat-expansion-panel id="experimentDetails" [expanded]="step === 0" (opened)="setStep(0)" hideToggle="true">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="text-bold">
+                  Step 1 : Experiment details
+                </mat-panel-title>
+                <mat-panel-description>
+                  Enter the details of the experiment
+                  <mat-icon>assignment</mat-icon>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <app-creation-details [experiment]="experiment"></app-creation-details>
+
+              <div id="visibilityField">
+                <div class="form-group">
+                  <mat-form-field>
+                    <mat-select placeholder="Visibility" [(ngModel)]="visible" required name="visibility">
+                      <mat-option *ngFor="let item of visibility" [value]="item.value">
+                        {{item.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div *ngIf="visible === '3'" id="sharedUserField">
+                <div class="form-group">
+                  <ng-select [items]="users" [multiple]="true" [closeOnSelect]="false" [hideSelected]="true" bindLabel="bindName" bindValue="_id"
+                    placeholder="Select people" [(ngModel)]="experiment.user_permission" name="sharedUser" required #sharedUser="ngModel">
+                    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                      <h5>{{item.firstname}} {{item.lastname}}</h5>
+                    </ng-template>
+                  </ng-select>
+                  <div *ngIf="sharedUser.invalid && (sharedUser.dirty || sharedUser.touched)" class="alert alert-danger">
+                    At least one user selected is required
+                  </div>
+                </div>
+              </div>
+
+              <mat-action-row>
+                <button mat-button color="primary" (click)="nextStep()">Next</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel id="datasetUpload" [expanded]="step === 1" (opened)="setStep(1)" hideToggle="true">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="text-bold">
+                  Step 2: Upload dataset(s)
+                </mat-panel-title>
+                <mat-panel-description>
+                  Enter the details of the dataset and upload file(s)
+                  <mat-icon>file_upload</mat-icon>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <app-creation-dataset #CreationDatasetComponent></app-creation-dataset>
+
+              <mat-action-row>
+                <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                <button mat-button color="primary" (click)="nextDataset()">Next</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel id="metadataUpload" [expanded]="step === 2" (opened)="setStep(2)" hideToggle="true">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="text-bold">
+                  Step 3: Upload metadata(s)
+                </mat-panel-title>
+                <mat-panel-description>
+                  Upload the metadatas if you have
+                  <mat-icon>vertical_align_top</mat-icon>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <app-creation-metadata #CreationMetadataComponent></app-creation-metadata>
+
+              <mat-action-row>
+                <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                <button mat-button color="primary" (click)="displaySubmit(f.form.valid)">End</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+
+          </mat-accordion>
+          <div style=" margin:0; padding:0; height:50px;"></div>
+          <div *ngIf="messageError.display" class="alert alert-danger">
+            {{messageError.message}}
+          </div>
+
+          <div id="overlay" [hidden]="hiddenSpinner">
+            <mat-spinner id="spinner"></mat-spinner>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</form>

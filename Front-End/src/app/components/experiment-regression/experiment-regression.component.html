@@ -1,0 +1,67 @@
+<div *ngIf="!err.show" class="contain">
+  <div *ngIf="!new && !model" class="container" style="height: 100% !important;">
+    <div class="row" style="height: 100% !important;">
+      <div class="col-sm-10 offset-sm-1">
+
+        <div class="card border-success" style="border-width: 2px">
+          <div class="card-header text-bold" style="text-align: center;">
+            <h4>Model for the regression</h4>
+          </div>
+          <div *ngIf="is_metaFile" class="card-body" style="text-align: center;">
+            <h5>At this point you can choose between a model already trained or a new one.</h5>
+            <div class="row justify-content-around" style="margin-top: 20px">
+              <div class="col-4">
+                <button type="button" class="btn btn-primary" (click)="displayComponent(true)">New Model</button>
+              </div>
+              <div class="col-4">
+                <button type="button" class="btn btn-primary" (click)="displayComponent(false)">Trained Model</button>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!is_metaFile" class="card-body" style="text-align: center;">
+            <h5>At this point you can only perform a regression with trained model because you did not provide a bacterial
+              count file.</h5>
+            <div class="row justify-content-around" style="margin-top: 20px">
+              <div class="col-4">
+                <button type="button" class="btn btn-primary" (click)="displayComponent(false)">Trained Model</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="new" class="container" style="height: 100% !important;">
+    <div class="row" style="height: 100% !important;">
+      <div class="col-sm-10 offset-sm-1">
+        <app-new-regression [bacteriaList]="bacterias" [is_metaFile]="is_metaFile" [platformsList]="platforms" (emitSpinner)="spinner($event)" (emitError)="error($event)"></app-new-regression>
+      </div>
+    </div>
+  </div>
+
+  <app-model-regression *ngIf="model" [is_metaFile]="is_metaFile" [bacteriaList]="bacterias" [platformsList]="platforms" (emitSpinner)="spinner($event)"
+    (emitError)="error($event)" style="height: 100% !important; width: 100% !important;"></app-model-regression>
+
+  <div id="overlay" [hidden]="hiddenSpinner">
+    <mat-spinner id="spinner"></mat-spinner>
+  </div>
+
+
+
+</div>
+
+<div *ngIf="err.show" class="jumbotron">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 offset-md-1">
+        <h2>
+          {{err.title}}
+          <br/>
+          <br/>
+        </h2>
+        <h4 [innerHTML]="err.message"></h4>
+      </div>
+    </div>
+  </div>
+</div>

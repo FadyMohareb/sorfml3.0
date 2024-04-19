@@ -1,0 +1,58 @@
+<div *ngIf="!showError" class="jumbotron">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 offset-md-1">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>
+              <h2>{{experiment.name}}</h2>
+            </mat-card-title>
+            <mat-card-subtitle>{{experiment.description}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <dl>
+              <dt>Author:</dt>
+              <dd>{{author.lastname}} {{author.firstname}}</dd>
+              <dt>Date:</dt>
+              <dd>{{experiment.date}}</dd>
+              <dt>Visibility:</dt>
+              <dd>{{visible}}</dd>
+              <dt>Experiment ID:</dt>
+              <dd>{{currentExperimentId}}</dd>
+            </dl>
+          </mat-card-content>
+          <mat-card-actions *ngIf="(auth.isLoggedIn() && author._id === auth.getUserDetails()._id) || auth.isAdmin()">
+            <a mat-raised-button class="blueColor" (click)="redirect()">
+              <mat-icon>edit</mat-icon>
+            </a>
+            <a mat-raised-button color="warn" (click)="deleteExperiment(experiment._id)">
+              <mat-icon>delete</mat-icon>
+            </a>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="overlay" [hidden]="display">
+  <mat-spinner id="spinner"></mat-spinner>
+</div>
+
+<div *ngIf="showError" class="jumbotron">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 offset-md-1">
+        <h2>
+          No Experiment Found.
+          <br/>
+          <br/>
+        </h2>
+        <h4>
+          The experiment as been deleted by the author or there is a problem with the server.
+          <br/>Check the console.
+        </h4>
+      </div>
+    </div>
+  </div>
+</div>

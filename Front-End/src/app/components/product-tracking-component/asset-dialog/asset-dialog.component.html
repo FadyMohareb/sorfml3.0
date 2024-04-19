@@ -1,0 +1,117 @@
+
+<span class="material-icons" (click)="close()" style="float: right;">
+  <mat-icon>highlight_off</mat-icon>
+</span>
+
+<div style="margin: 20px;">
+  <div style="font-size: 1.5em; text-align: center;  margin-bottom: 15px;">Create Asset</div>
+  <form (ngSubmit)="onSubmit()">
+    <div fxLayout="column" fxLayoutAlign="space-around">
+      <div class="row">
+
+        <div class="col-md-12">
+          <mat-error *ngIf="form.controls['productName'].hasError('required') && form.controls['productName'].touched"
+            class="mat-text-warn">You must include product name!<br>
+          </mat-error>
+          <mat-error *ngIf="form.controls['productName'].hasError('pattern')"
+          class="mat-text-warn">Only alphabets are acceptable!<br>
+        </mat-error>
+          <mat-form-field appearance="outline" style="width: 100px;">
+              <mat-label>Product name</mat-label>
+              <input matInput
+                type                   = "text"
+                pattern                = "[a-zA-Z ]*"
+                required [formControl] = "form.controls['productName']"
+                [(ngModel)]            = "asset.productName">
+          </mat-form-field>
+        </div>
+
+        <div class="col-sm-12">
+          <mat-form-field appearance="outline" style="width: 100px;">
+            <mat-label>Product type</mat-label>
+            <mat-select
+              placeholder   = "Product type"
+              [(ngModel)]   = "productTypeSelected"
+              required name = "productTypeOptions">
+            <mat-option *ngFor="let item of productTypeOptions" [value]="item.value">
+                {{item.viewValue}}
+            </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-sm-12">
+          <mat-error *ngIf="form.controls['location'].hasError('required') && form.controls['location'].touched"
+            class="mat-text-warn">You must include location!<br>
+          </mat-error>
+          <mat-error *ngIf="form.controls['location'].touched && googleSearchBox.getPlaces() === undefined"
+            class="mat-text-warn">Select location from the search list again.<br>
+          </mat-error>
+          <mat-form-field appearance="outline">
+            <mat-label>location</mat-label>
+            <input
+              id                     = "google-search"
+              matInput type          = "text"
+              required [formControl] = "form.controls['location']"
+              [(ngModel)]            = "asset.location">
+          </mat-form-field>
+        </div>
+
+        <div class="col-sm-12">
+          <mat-error *ngIf="form.controls['temperature'].hasError('required') && form.controls['temperature'].touched"
+            class="mat-text-warn">You must include temperature!<br>
+          </mat-error>
+          <mat-form-field appearance="outline">
+            <mat-label>Temperature / °C</mat-label>
+            <input matInput
+              type                   = "number"
+              required [formControl] = "form.controls['temperature']"
+              [(ngModel)]            = "assetTempNum">
+          </mat-form-field>
+        </div>
+
+        <div class="col-sm-12">
+          <mat-error *ngIf="assetWeightNum < 1"
+            class="mat-text-warn">The weight cannot be less than 1 Kg!<br>
+          </mat-error>
+          <mat-error *ngIf="form.controls['weight'].hasError('required') && form.controls['weight'].touched"
+            class="mat-text-warn" style="margin-left:10px">You must include weight!<br>
+          </mat-error>
+          <mat-form-field appearance="outline">
+            <mat-label>Weight / Kg</mat-label>
+            <input matInput
+              type                   = "number"
+              required [formControl] = "form.controls['weight']"
+              [(ngModel)]            = "assetWeightNum">
+          </mat-form-field>
+        </div>
+
+        <div class="col-sm-12">
+          <mat-error *ngIf="form.controls['useByDate'].hasError('required') && form.controls['useByDate'].touched"
+            class="mat-text-warn">You must set use-by date!<br>
+          </mat-error>
+          <mat-form-field appearance="outline">
+            <mat-label>Use By Date</mat-label>
+            <input matInput
+              type                   = "date"
+              required [formControl] = "form.controls['useByDate']"
+              [(ngModel)]            = "asset.useByDate">
+          </mat-form-field>
+        </div>
+
+        <div class="col-sm-12" align="center">
+          <button mat-raised-button
+            color      = "primary"
+            type       = "submit"
+            [disabled] = "!form.valid || assetWeightNum < 1"
+            style      = "margin-top:10px;">Create</button>
+        </div>
+
+        <div id="overlay" [hidden]="hiddenSpinner">
+          <mat-spinner id="spinner"></mat-spinner>
+        </div>
+
+      </div>
+    </div>
+  </form>
+</div>

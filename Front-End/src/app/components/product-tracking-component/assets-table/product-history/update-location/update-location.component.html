@@ -1,0 +1,68 @@
+<!-- UPDATE LOCATION FORM -->
+
+<div class="contain">
+  <div style="padding-top: 10px; padding-right: 2rem; padding-left: 2rem;">
+    <div style="padding-top: 10px; padding-right: 2rem; padding-left: 2rem;">
+      <h4 class="text-bold">
+        Update Product Location
+        <br>
+      </h4>
+      <h5>AssetID: {{currentAssetId}}</h5>
+      <h5>Please fill in the form to update the product's location and current temperature.</h5>
+      <hr class="my-4">
+    </div>
+  </div>
+<form #myForm="ngForm" *ngIf="!updateComplete">
+  <h5 *ngIf='emptyFields && !updateComplete' class="text-bold" style="color:red; text-align: center;">Please fill in all fields.</h5>
+  <mat-accordion class="headers-align">
+    
+    <mat-expansion-panel id="ProductRegForm" [expanded]="true" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title class="text-bold">
+          Update Product
+        </mat-panel-title>
+        <mat-panel-description>
+          Define Update Data 
+          <mat-icon>assignment</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <div id="TempField" class="col-sm-12">
+        <h6>New Temperature</h6>
+        <mat-form-field>
+          <input matInput type="text" id="temperature" required [(ngModel)]="details.temperature" name="temperature">
+        </mat-form-field>  
+      </div>
+
+      <div id="newLocationField" class="col-sm-12">
+        <h6>New Location</h6>
+        <mat-form-field>
+          <input matInput type="text" id="newLocation" required [(ngModel)]="details.newLocation" name="newLocation">
+        </mat-form-field>  
+      </div> 
+
+      <mat-action-row>
+        <button mat-button color="primary" (click)="UpdateLocation()">Confirm Update</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+
+  </mat-accordion>
+</form>
+
+<div>
+  <div *ngIf="updateComplete == true" class="contain">
+    <div class="container" style="height: 100% !important;">
+      <div class="row" style="height: 100% !important;">
+        <div class="col-sm-10 offset-sm-1">
+          <div class="card border-success" style="border-width: 2px">
+            <div class="card-header text-bold" style="text-align: center;">
+              <h4>Update Complete!</h4>
+            <div class="card-body" style="text-align: center;">
+              <div class="row justify-content-around" style="margin-top: 20px">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

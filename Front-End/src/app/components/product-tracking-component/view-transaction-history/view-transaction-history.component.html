@@ -1,0 +1,106 @@
+
+<mat-toolbar color="accent">
+  <div style="text-align: center; width: 100%; bottom: 5%;">
+    Transaction Histroy of {{titleProductName}} (Product ID: {{titleProductId}})
+  </div>
+</mat-toolbar>
+
+<!-- Button for Google Map's tracking -->
+<div class="col-sm-12">
+  <button mat-raised-button
+    type    = "button"
+    color   = "primary"
+    style   = "margin-bottom: 10px; margin-top: 30px; left: 5%;"
+    class   = "btn btn-primary"
+    (click) = "viewGoogleMap()">
+    <img
+      class  = "icon"
+      src    = "./assets/images/google-maps-logo.png"
+      width  = "25px"
+      height = "25px">
+    Open Google Maps™
+  </button>
+  <button mat-raised-button
+    type    = "button"
+    color   = "primary"
+    style   = "margin-bottom: 10px; margin-top: 30px; margin-left: 80px; position: relative;"
+    class   = "btn btn-primary"
+    (click) = "getAllBranchesTest()">
+    Monitor this asset
+  </button>
+</div>
+
+<div class="layout">
+  <div class="layout">
+    <table mat-table matTableExporter [dataSource]="dataSource" matSort class="mat-elevation-z8"
+      style="width: 90%; left: 5%; top: 10%; position: relative;">
+      <tr mat-header-row *matHeaderRowDef="displayedcolumns"></tr>
+      <tr mat-row *matRowDef="let row; let i = index; columns: displayedcolumns;"></tr>
+
+      <!--
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let element; let i = index"> {{ (i+1) + (paginator.pageIndex *
+          paginator.pageSize) }} </td>
+      </ng-container>
+      -->
+
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let element; let i = index"> {{element.position}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="owner">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Owner </th>
+        <td mat-cell *matCellDef="let element"> {{element.Owner}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="assetStatus">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+        <td mat-cell *matCellDef="let element"> {{element.AssetStatus}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="timestamp">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Timestamp </th>
+        <td mat-cell *matCellDef="let element"> {{element.EventTimestamp}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="transferTo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Transfer to </th>
+        <td mat-cell *matCellDef="let element"> {{element.TransferTo}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="weight">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Weight / Kg </th>
+        <td mat-cell *matCellDef="let element"> {{element.Weight}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="location">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Location </th>
+        <td mat-cell *matCellDef="let element"> {{element.Location}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="temperature">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Temp. / ℃ </th>
+        <td mat-cell *matCellDef="let element"> {{element.Temperature}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="useByDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Best-by Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.UseByDate}} </td>
+      </ng-container>
+
+    </table>
+
+    <!--
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+      [ngClass]="{'column-shadow': true}"
+      aria-label="Select page of periodic elements"
+      style="width: 85%; left: 5%; top: 10%; position: relative;">
+    </mat-paginator>
+    -->
+
+  </div>
+
+</div>

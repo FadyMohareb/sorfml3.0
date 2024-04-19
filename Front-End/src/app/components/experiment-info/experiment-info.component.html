@@ -1,0 +1,12 @@
+<div style="padding-top: 10px; padding-right: 2rem; padding-left: 2rem;">
+    <div style="padding-top: 10px; padding-right: 2rem; padding-left: 2rem;">
+        <h4 class="text-bold clickable" (click)="redirect()">
+            Experiment
+            <br>
+            <small *ngIf="!showError" class="text-muted" style="color: #67a79c !important;">{{experiment.name}}, created the {{experiment.date}} by {{author.lastname}} {{author.firstname}}.
+                <br>Description: {{experiment.description}}.</small>
+            <small *ngIf="showError" class="text-muted" style="color: #67a79c !important;">No Experiment Found.</small>
+        </h4>
+        <hr class="my-4">
+    </div>
+</div>

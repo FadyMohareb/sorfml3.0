@@ -1,0 +1,90 @@
+
+
+<!-- <div *ngIf="productHistory" class="container" style="height: 100% !important;">
+  <div class="row" style="height: 100% !important;">
+    <div class="col-sm-10 offset-sm-1">
+      <app-product-history (emitSpinner)="spinner($event)" (emitError)="error($event)"></app-product-history>
+    </div>
+  </div>
+</div> -->
+
+<div *ngIf="!error.show && !productHistory" class="contain">
+  <div style="padding-top: 10px; padding-right: 2rem; padding-left: 2rem;">
+    <div style="padding-top: 10px; padding-right: 2rem; padding-left: 2rem;">
+      <h4 class="text-bold">
+        Your Registered Products
+        <br>
+      </h4>
+      <h5>Please Select a product from the table for further options.</h5>
+      <hr class="my-4">
+    </div>
+  </div>
+
+  <div class="contain">
+    <div *ngIf="rowSelected" class="container" style="height: 45% !important;">
+      <div class="row" style="height: 50% !important;">
+        <div class="col-sm-10 offset-sm-1">
+  
+          <div class="card border-success" style="border-width: 2px">
+            <div class="card-header text-bold" style="text-align: center;">
+              <h4 class = 'text-bold'>Selected Product</h4>
+              <h5>asset ID: {{ selectedAssetID }}</h5>
+              <h5>Product Type: {{ selectedProductType }}</h5>
+              <h5>Registration Date: {{ selectedRegDate }}</h5>
+            </div>
+            <div class="card-body" style="text-align: center;">
+              <div class="row justify-content-around" style="margin-top: 10px">
+                <div class="col-4">
+                  <button type="button" class="btn btn-primary" (click)="downloadQR()">Download QR</button>
+                </div>
+               <div class="col-4">
+                <button type="button" class="btn btn-primary" (click)="selectSeeHistory(true)">See History</button>
+            </div>
+            </div>
+          </div> 
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="contain">
+    <div class="row" style="height: 100% !important;">
+      <div class="col-10 offset-1" style="height: 100% !important;">
+        <ag-grid-angular #agGrid style="width: 100%; height: 100%;" id="myGrid" [rowData]="rowData" class="ag-theme-balham"
+          [columnDefs]="columnDefs" [enableSorting]="true" [enableFilter]="true" [enableColResize]="true" [paginationAutoPageSize]="true"
+          [pagination]="true" [animateRows]="true" [floatingFilter]="true" (rowClicked)='onRowClicked($event)' (gridReady)="onGridReady($event)">
+        </ag-grid-angular>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div *ngIf="productHistory" class="container" style="height: 100% !important;">
+  <div class="row" style="height: 100% !important;">
+    <div class="col-sm-10 offset-sm-1">
+      <app-product-history (emitSpinner)="spinner($event)" (emitError)="error($event)"></app-product-history>
+    </div>
+  </div>
+</div> -->
+
+
+
+
+<div id="overlay" [hidden]="display">
+  <mat-spinner id="spinner"></mat-spinner>
+</div>
+
+<div *ngIf="error.show" class="jumbotron">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 offset-md-1">
+        <h2>
+          {{error.title}}
+          <br/>
+          <br/>
+        </h2>
+        <h4 [innerHTML]="error.message"></h4>
+      </div>
+    </div>
+  </div>
+</div>

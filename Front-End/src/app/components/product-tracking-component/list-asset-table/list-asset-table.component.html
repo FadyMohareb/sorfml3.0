@@ -1,0 +1,87 @@
+
+<mat-toolbar color="accent">
+  <div style="text-align: center;width: 100%;">
+    Manipulate Your Products
+  </div>
+</mat-toolbar>
+
+<div class="layout">
+  <div class="layout">
+    <div class="search" style="margin-left: 5%;">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
+      </mat-form-field>
+      <button mat-raised-button color="primary" style="left: 100px; position: relative;" (click)="addNewAsset()"> Create Asset </button>
+    </div>
+
+    <table mat-table matTableExporter [dataSource]="dataSource" matSort class="mat-elevation-z8"
+      style="width: 85%;left: 5%;top: 10%;position: relative;">
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; let i = index; columns: displayedColumns;"></tr>
+
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let element; let i = index"> {{ (i+1) + (paginator.pageIndex * paginator.pageSize) }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="productName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Product </th>
+        <td mat-cell *matCellDef="let element"> {{element.ProductName}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="owner">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Current owner </th>
+        <td mat-cell *matCellDef="let element"> {{element.Owner}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="assetStatus">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Asset Status </th>
+        <td mat-cell *matCellDef="let element"> {{element.AssetStatus}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="location">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Location </th>
+        <td mat-cell *matCellDef="let element"> {{element.Location}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="temperature">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Temp./°C </th>
+        <td mat-cell *matCellDef="let element"> {{element.Temperature}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="view">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> View </th>
+        <td mat-cell *matCellDef="let element;let i = index" style="padding-right: 15px;">
+          <span class="material-icons" style="cursor:pointer;" (click)="view(element,i)">remove_red_eye</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="requestTransfer">
+        <th mat-header-cell *matHeaderCellDef> Transfer </th>
+        <td mat-cell *matCellDef="let element;let i = index" style="padding-right: 15px;">
+          <span class="material-icons" style="cursor: pointer;" (click)="requestTransfer(element,i)">send</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef> Edit </th>
+        <td mat-cell *matCellDef="let element;let i = index" style="padding-right: 15px;">
+          <span class="material-icons" style="cursor: pointer;" (click)="editRow(element,i)">border_color</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef> Delete </th>
+        <td mat-cell *matCellDef="let element;let i = index" style="padding-right: 15px;">
+          <span class="material-icons" style="cursor: pointer; color:#EF4040;" (click)="openDeleteDialog(element,i)">delete</span>
+        </td>
+      </ng-container>
+
+    </table>
+
+    <mat-paginator [length]="100" showFirstLastButtons [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" style="bottom: 0;position:fixed;width:100%">
+    </mat-paginator>
+
+  </div>
+</div>

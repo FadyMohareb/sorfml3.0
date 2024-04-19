@@ -1,0 +1,103 @@
+<div class="contain">
+  <div style="padding-top: 10px; padding-right: 2rem; padding-left: 2rem;">
+    <div style="padding-top: 10px; padding-right: 2rem; padding-left: 2rem;">
+      <h4 class="text-bold">
+        Product Registration
+        <br>
+      </h4>
+      <h5>Please fill in the product details.</h5>
+      <hr class="my-4">
+    </div>
+  </div>
+
+<h5 *ngIf='emptyFields && !regComplete' class="text-bold" style="color:red; text-align: center;">Please fill in all fields.</h5>
+
+<div class="container-fluid" style="width: 80% !important;">
+  <form #myForm="ngForm" *ngIf="!regComplete">
+    <mat-accordion class="headers-align">
+      
+
+      <mat-expansion-panel id="ProductRegForm" [expanded]="true" hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title class="text-bold">
+            Register Product
+          </mat-panel-title>
+          <mat-panel-description>
+            Define Product Data 
+            <mat-icon>assignment</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div id="LocationField" class="col-sm-12">
+          <h6>Location </h6>
+          <mat-form-field>
+            <input matInput type="text" id="location" required [(ngModel)]="product.locations" name="location">
+          </mat-form-field>  
+          <!-- <div *ngIf="location.invalid && (location.dirty || location.touched)" class="alert alert-danger">
+            Location name is required
+        </div> -->
+        </div>
+
+        <div id="ProductTypeField" class="col-sm-12">
+          <h6>Product Type</h6>
+          <mat-form-field>
+            <input matInput type="text" id="productType" required [(ngModel)]="product.productType" name="productType">
+          </mat-form-field>  
+        </div>
+
+        <div id="WeightField" class="col-sm-12">
+          <h6>Weight (g)</h6>
+          <mat-form-field>
+            <input matInput type="text" id="weight" required [(ngModel)]="product.weight" name="weight">
+          </mat-form-field>  
+        </div>
+
+        <div id="TempField" class="col-sm-12">
+          <h6>Temperature (°C)</h6>
+          <mat-form-field>
+            <input matInput type="text" id="temperature" required [(ngModel)]="product.temperature" name="temperature">
+          </mat-form-field>  
+        </div>
+
+        <div id="USeByField" class="col-sm-12">
+          <h6>Use By Date</h6>
+          <mat-form-field>
+            <input matInput type="date" id="useByDate" required [(ngModel)]="product.useByDate" name="useByDate">
+          </mat-form-field>  
+        </div> 
+
+        <div *ngIf="svrError" class="alert alert-danger">
+          Some inputs are empty.
+        </div>
+
+        <mat-action-row>
+          <button mat-button color="primary" (click)="registerTheProduct()">Register</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+
+    </mat-accordion>
+  </form>
+</div>
+<div class="contain">
+  <div *ngIf="regComplete" class="container" style="height: 100% !important;">
+    <div class="row" style="height: 100% !important;">
+      <div class="col-sm-10 offset-sm-1">
+
+        <div class="card border-success" style="border-width: 2px">
+          <div class="card-header text-bold" style="text-align: center;">
+            <h4>Product Registration Complete!</h4>
+          </div>
+          <div class="card-body" style="text-align: center;">
+            <h5>Asset ID: </h5>
+            <h6>{{registrationResults.assetID}}</h6>
+          <div class="card-body" style="text-align: center;">
+            <div class="row justify-content-around" style="margin-top: 20px">
+              <div class="col-4">
+                <button type="button" class="btn btn-primary" (click)="downloadQR()">Download QRCode</button>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

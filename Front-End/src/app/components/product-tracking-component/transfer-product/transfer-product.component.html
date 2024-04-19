@@ -1,0 +1,73 @@
+
+<span class="material-icons" (click)="close()" style="float: right;">
+  <mat-icon>highlight_off</mat-icon>
+</span>
+<div style="margin: 15px;">
+  <div style="font-size: 1.5em; text-align: center;  margin-bottom: 20px;">Transaction Request</div>
+  <form>
+    <div fxLayout="column" fxLayoutAlign="space-around stretch">
+      <div class="row">
+
+        <div class="col-md-12">
+          <!-- Make forms disabled if the asset is already requested -->
+          <div *ngIf="alreadyRequested" class="p-1 mb-1 bg-secondary text-white" style="border-radius: 4px;">
+            <h5>The transaction has already been requested. Please wait for the approval by RD.<br></h5>
+          </div>
+          <!-- Make forms disabled if the asset is already finished -->
+          <div *ngIf="zeroWeight" class="p-1 mb-1 bg-danger text-white" style="border-radius: 4px;">
+            <h5>You can not transfer this asset - you do not possess any amount of this asset anymore.<br></h5>
+          </div>
+
+          <div style="font-size: 1.2em; text-align: left; margin-bottom: 10px;">Which organisation you will transfer?</div>
+          <mat-form-field appearance="fill">
+            <mat-select
+              placeholder   = "Transfer to organisation"
+              [(ngModel)]   = "transferToOrgSelected"
+              [disabled]    = "alreadyRequested || zeroWeight"
+              required name = "transferToOrgOptions">
+              <mat-option *ngFor="let item of transferToOrgOptions" [value]="item.value">{{item.viewValue}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-12">
+          <div style="font-size: 1.2em; text-align: left; margin-bottom: 10px;">How much you will transfer?</div>
+          <mat-error *ngIf="transferToWeight > dataWeightNum" class="mat-text-warn">
+            The transferred amount must be lower than {{data.Weight}}!<br>
+          </mat-error>
+          <mat-error *ngIf="transferToWeight < 1 && !zeroWeight" class="mat-text-warn">
+            The transferred amount must be higher than 1 Kg!<br>
+          </mat-error>
+          <mat-form-field appearance="outline" style="width: 15vw">
+            <mat-label>Weight / Kg</mat-label>
+            <input matInput
+              type          = "number"
+              value         = "{{data.Weight}}"
+              [formControl] = "form.controls['transferWeight']"
+              [(ngModel)]   = "transferToWeight"
+              [disabled]    = "form.controls['transferWeight'].hasError('required') || alreadyRequested"
+              [readonly]    = "alreadyRequested || zeroWeight">
+          </mat-form-field>
+
+        </div>
+          <button mat-raised-button
+            color      = "primary"
+            type       = "submit"
+            [disabled] = "form.controls['transferTo'].hasError('required') ||
+                          alreadyRequested                                 ||
+                          zeroWeight                                       ||
+                          transferToWeight > dataWeightNum                 ||
+                          transferToWeight < 1"
+            style      = "margin-top: 10px; margin-left: 10px;"
+            (click)    = "TransferProduct()">
+            Request Transfer
+          </button>
+        </div>
+
+        <div id="overlay" [hidden]="hiddenSpinner">
+          <mat-spinner id="spinner"></mat-spinner>
+        </div>
+
+      </div>
+    </form>
+</div>

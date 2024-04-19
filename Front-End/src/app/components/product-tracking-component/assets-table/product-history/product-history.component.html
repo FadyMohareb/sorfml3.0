@@ -1,0 +1,72 @@
+<!-- <app-update-location *ngIf="updateLocation" ></app-update-location> -->
+<!-- <app-transfer-ownership *ngIf="transferOwnership" ></app-transfer-ownership> -->
+
+
+
+<div class="contain">
+  <div style="padding-top: 10px; padding-right: 2rem; padding-left: 2rem;">
+    <div style="padding-top: 10px; padding-right: 2rem; padding-left: 2rem;">
+      <h4 class="text-bold">
+        AssetID: {{currentAssetId}}
+        <br>
+      </h4>
+      <h5>Timeline of all transactions for selected asset.</h5>
+      <hr class="my-4">
+      <div class="card-body" style="text-align: center;">
+        <div class="row justify-content-around" style="margin-top: 20px">
+          <div class="col-4">
+            <button *ngIf='isLoggedIn && isProductOwner' type="button" class="btn btn-primary" (click)="selectedUpdateLocation(true)">Update Location</button>
+          </div>
+          <div class="col-4">
+            <button *ngIf='isLoggedIn && isProductOwner' type="button" class="btn btn-primary" (click)="selectedLinkExperiment(true)">Link Experiment</button>
+          </div>
+          <div class="col-4">
+            <button *ngIf='isLoggedIn && isProductOwner' type="button" class="btn btn-primary" (click)="selectedTransferOwnership(true)">Transfer Ownership</button>
+        </div>
+        <h5 *ngIf='!isLoggedIn'>If you are the owner of this product, please log in to perform updates.</h5>
+        <h5 *ngIf='isLoggedIn && !isProductOwner'>You are unable to make updates as you are not the product owner.</h5>
+      </div>
+      <hr class="my-4">
+    </div>
+  </div>
+
+  
+
+
+<div *ngIf="!updateLocation && !transferOwnership" class="container">
+  <div class="timeline">
+    <ul>
+      <li *ngFor="let item of data">
+        <div class="timeline-content">
+          <!-- <h3 class="date">{{item.metadata.datetime}}</h3> -->
+          <h1 class="text-bold text-green">{{item.metadata.transaction}}</h1>
+          <p class="text-bold">Date:  {{item.metadata.datetime}}</p>
+          <!-- Product registration -->
+          <p *ngIf="item.metadata.transaction === 'Product Registered'">Location:  {{item.asset.data.product.location}}</p>
+          <p *ngIf="item.metadata.transaction === 'Product Registered'">Temperature (°C):  {{item.asset.data.product.temperature}}</p>
+          <p *ngIf="item.metadata.transaction === 'Product Registered'">Product Type:  {{item.asset.data.product.productType}}</p>
+          <p *ngIf="item.metadata.transaction === 'Product Registered'">Weight (g):  {{item.asset.data.product.weight}}</p>
+          <p *ngIf="item.metadata.transaction === 'Product Registered'">Use By Date:  {{item.asset.data.product.useByDate}}</p>
+          <p *ngIf="item.metadata.transaction === 'Product Registered'">Registered by:  {{item.asset.data.product.username}}</p>
+          <!-- Auto registration -->
+          <p *ngIf="item.metadata.transaction === 'Auto Registered'">Experiment ID:  {{item.asset.data.product.linkedExperiment.experimentID}}</p>
+          <p *ngIf="item.metadata.transaction === 'Auto Registered'">Experiment Location:  {{item.asset.data.product.linkedExperiment.location}}</p>
+          <p *ngIf="item.metadata.transaction === 'Auto Registered'">Experiment Datasets:  {{item.asset.data.product.linkedExperiment.datasetTypes}}</p>
+          <p *ngIf="item.metadata.transaction === 'Auto Registered'">Experiment sampleID:  {{item.asset.data.product.linkedExperiment.sampleID}}</p>
+          <p *ngIf="item.metadata.transaction === 'Auto Registered'">Product Type:  {{item.asset.data.product.productType}}</p>
+          <p *ngIf="item.metadata.transaction === 'Auto Registered'">Registered by:  {{item.asset.data.product.username}}</p>
+          <!-- Location update -->
+          <p *ngIf="item.metadata.transaction === 'Location Update'">New Location:  {{item.metadata.updatedLocation}}</p>
+          <p *ngIf="item.metadata.transaction === 'Location Update'">Temperature (°C):  {{item.metadata.Temperature}}</p>
+          <p *ngIf="item.metadata.transaction === 'Location Update'">Updated By:  {{item.metadata.updatedBy}}</p>
+          <!-- Experiment Linked -->
+          <p *ngIf="item.metadata.transaction === 'Experiment Linked'">Experiment ID:  {{item.metadata.experimentID}}</p>
+          <p *ngIf="item.metadata.transaction === 'Experiment Linked'">Sample ID:  {{item.metadata.sampleID}}</p>
+          <p *ngIf="item.metadata.transaction === 'Experiment Linked'">Updated By:  {{item.metadata.updatedBy}}</p>
+          <!-- Ownership Transfer -->
+          <p *ngIf="item.metadata.transaction === 'Ownership Transfer'">Transferred To:  {{item.metadata.transferredTo}}</p>
+          <p *ngIf="item.metadata.transaction === 'Ownership Transfer'">Transferred From:  {{item.metadata.transferredFrom}}</p>
+        </div>
+      </li>
+    </ul>
+  </div>
