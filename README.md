@@ -2,35 +2,25 @@
 
 <p align="left">
   <a href="">
-    <img src="https://img.shields.io/badge/release-v3.0.1-brightgreen">
-  </a>
+    <img src="https://img.shields.io/badge/release-v3.0.1-brightgreen"></a>
   <a href="https://github.com/FadyMohareb/sorfml3.0/blob/main/LICENSE">
-    <img src="https://img.shields.io/badge/LICENSE-MIT-blue">
-  </a>
+    <img src="https://img.shields.io/badge/LICENSE-MIT-blue"></a>
   <a href="http://elvis.misc.cranfield.ac.uk/sorfml2/home">
-    <img src="https://img.shields.io/badge/LiveVersion-5755FE?logo=ubuntu&logoColor=white">
-  </a>
+    <img src="https://img.shields.io/badge/LiveVersion-5755FE?logo=ubuntu&logoColor=white"></a>
   <a href="https://hyperledger-fabric.readthedocs.io/en/latest/index.html">
-    <img src="https://img.shields.io/badge/HypeledgerFabric-FF6464?logo=linuxfoundation&logoColor=white">
-  </a>
+    <img src="https://img.shields.io/badge/HypeledgerFabric-FF6464?logo=linuxfoundation&logoColor=white"></a>
   <a href="https://www.mongodb.com/">
-    <img src="https://img.shields.io/badge/MongoDB-337357?logo=mongodb&logoColor=white">
-  </a>
+    <img src="https://img.shields.io/badge/MongoDB-337357?logo=mongodb&logoColor=white"></a>
   <a href="https://www.docker.com/">
-   <img src="https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white">
-  </a>
+   <img src="https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white"></a>
   <a href="https://nodejs.org/en">
-    <img src="https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white">
-  </a>
+    <img src="https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white"></a>
   <a href="https://angular.io/">
-    <img src="https://img.shields.io/badge/Angular-D24545?logo=angular&logoColor=">
-  </a>
+    <img src="https://img.shields.io/badge/Angular-D24545?logo=angular&logoColor="></a>
   <a href="https://github.com/LeaSaxton/FQCforSorfml2.0">
-    <img src="https://img.shields.io/badge/FoodQualityController-276DC3?logo=r&logoColor=white">
-  </a>
+    <img src="https://img.shields.io/badge/FoodQualityController-276DC3?logo=r&logoColor=white"></a>
   <a href="">
-    <img src="https://img.shields.io/github/stars/FadyMohareb/sorfml3.0">
-  </a>
+    <img src="https://img.shields.io/github/stars/FadyMohareb/sorfml3.0"></a>
 </p>
 
 <p align="center">
