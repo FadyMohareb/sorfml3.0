@@ -24,6 +24,7 @@
 
 # QR code result PNG
 /Back-End/qrcode_result/product-tracking-qrcode.png
+/Back-End/qrcode_result/!.gitignore
 
 # Connection config files 
 /Back-End/ProductTrackingUtils/connection-org1.json
