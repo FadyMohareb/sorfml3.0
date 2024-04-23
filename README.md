@@ -67,5 +67,65 @@ Please visit <a href="https://github.com/FadyMohareb/sorfml3.0/tree/main/testDat
 </p>
 
 <p align="justify">
-Please visit <a href="https://github.com/FadyMohareb/sorfml3.0/tree/main/testData">https://github.com/FadyMohareb/sorfml3.0/tree/main/testData</a> to see a example metadata file (Bacterial_Counts.csv).
+Please visit <a href="https://github.com/FadyMohareb/sorfml3.0/tree/main/testData">https://github.com/FadyMohareb/sorfml3.0/tree/main/testData</a> to see an example metadata file (Bacterial_Counts.csv).
 </p>
+
+## User manual (the product tracking layer)
+
+<p align="justify">
+Before starting, please make sure you have already resister to the product tracking layer to join a nwtwork of Blockchain.
+</p>
+
+### Create a new asset
+
+<p align="justify">
+You can create and regster your food product asset - go to the main section and click the button "Create Asset". Then you can enter 1) product name, 2) product type, 3) location, 4) temperature, 5) weight and 6) use-by date (see subcaption A in the figure below). If it is successful, your asset is now regstered onto the product tacking system of sorfML. 
+</p>
+
+### Edit your assets
+
+<p align="justify">
+You can edit your own asstes by clicking the "Edit" button (see subcaption B in the figure below). Note that if you change the product name, its product type is automatically changed into "Derived". In addtion to that, you can manipulate all the asset which belong to your oraganisation, even though they are registered by other users.
+</p>
+
+### Transaction request
+
+<p align="justify">
+If you attempt to transfer your assets to another organisation, you  need to send a transaction request to <span style="font-weight: bold; font-style: italic;">Regulatory Department</span> of sorfML system. By clicking the button "Transfer", you can enter an organisation to which you attempt to transfer your asset, and the amount of the transferred asset (see subcaption C in the figure below). Note that your asset is NOT transferred yet at this moment because your transaction request needs to be approved by a <span style="font-weight: bold; font-style: italic;">Regulatory Department</span>.
+</p>
+
+<p align="center">
+<img src="./images/readme_manipulate_assets.jpg" width="80%" height="80%">
+</p>
+
+### Transaction records
+
+You can monitor transaction history of your assets - go to "See Transaction History" section from the home of the product tracking layer, then a list of assets which belong to your organisation will pop by. Click the "View" and "See Transaction History" button. And you will acquire the whole history on the blocks of the asset.
+
+<p align="center">
+<img src="./images/readme_monitor_table.jpg" width="80%" height="80%">
+</p>
+
+### Download QR codes
+
+<p align="justify">
+In the "See Transaction History" section, a QR code which records the current status of the asset can be downloaded by clickling the "Download QR Code" button. Note that the QR codes do not contain the whole records of the asset transaction history.
+</p>
+
+
+### Geographical visualisation with Google Maps™
+
+<p align="justify">
+If your assets have already been transferred throughout different locations, the "Open Google Maps™" section provodes you with a geographical visualisation of your assets' transactions on Google Maps™. Each pin shows the block information at the point as its asset status.
+</p>
+
+<p align="center">
+<img src="./images/readme_googlemaps.jpg" width="80%" height="80%">
+</p>
+
+## Queries, issues and reports
+
+<p align="justify">
+If you have any inquiries, requests for new functionalities, reports on errors, or concerns related to the most recent release of sorfml3.0, kindly utilise the <a href="https://github.com/FadyMohareb/sorfml3.0/issues">issues</a> section positioned at the upper-left corner of the GitHub repository.
+</p>
+
